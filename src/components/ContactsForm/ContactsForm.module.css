@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formList {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonItem {
+  align-self: flex-end;
+}
+
+.toast {
+  height: 65px;
+  top: 195px;
+  right: 8px;
+  text-align: center;
+  background-color: rgb(138, 81, 81);
+  color: white;
+  border-radius: 4px;
+}
+
+.progress {
+  background: transparent;
+}
+
+.reactIcons {
+  width: 40px;
+  height: 40px;
+  fill: white;
+}

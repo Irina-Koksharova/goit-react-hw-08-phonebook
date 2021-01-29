@@ -1,0 +1,22 @@
+body {
+  font-family: Andika New Basic, sans-serif;
+  color: white;
+  background-color: rgb(51, 50, 50);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+h1,
+h2 {
+  margin: 0 0 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+h1 {
+  font-size: 28px;
+}

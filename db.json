@@ -1,0 +1,139 @@
+{
+  "contacts": [
+    {
+      "id": "id-1",
+      "name": "Rosie Simpson",
+      "number": "459-12-56",
+      "email": "rosie@gmail.com",
+      "skype": "Simpson",
+      "telegram": "Simpson",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-2",
+      "name": "Hermione Kline",
+      "number": "443-89-12",
+      "email": "hermione@gmail.com",
+      "skype": "Hermione",
+      "telegram": "HermioneKline",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-3",
+      "name": "Eden Clements",
+      "number": "645-17-79",
+      "email": "eden@gmail.com",
+      "skype": "eden19",
+      "telegram": "edenClements",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-4",
+      "name": "Annie Copeland",
+      "number": "227-91-26",
+      "email": "annie@gmail.com",
+      "skype": "annie12",
+      "telegram": "annieCopeland",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-5",
+      "name": "Rebecca Geland",
+      "number": "227-91-26",
+      "email": "rebecca@gmail.com",
+      "skype": "rebecca",
+      "telegram": "rebecca",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-6",
+      "name": "John Copeland",
+      "number": "227-91-26",
+      "email": "123@gmail.com",
+      "skype": "john",
+      "telegram": "johneCopeland",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-7",
+      "name": "Irena Tyn",
+      "number": "123-34-45",
+      "email": "1233445@gmail.com",
+      "skype": "1233445",
+      "telegram": "1233445",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-8",
+      "name": "Serg Null",
+      "number": "227-91-26",
+      "email": "serg@gmail.com",
+      "skype": "serg",
+      "telegram": "serg",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-9",
+      "name": "Elena Copeland",
+      "number": "227-91-26",
+      "email": "elena@gmail.com",
+      "skype": "elena",
+      "telegram": "elena",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-10",
+      "name": "Annie Kelrty",
+      "number": "227-91-26",
+      "email": "kelrty@gmail.com",
+      "skype": "kelrty23",
+      "telegram": "kelrty23",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-11",
+      "name": "Petr Hujke",
+      "number": "098-76-54",
+      "email": "petr@gmail.com",
+      "skype": "petr76",
+      "telegram": "petr76",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-12",
+      "name": "Lens Poland",
+      "number": "227-91-26",
+      "email": "lens@gmail.com",
+      "skype": "lens98",
+      "telegram": "lens98",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-13",
+      "name": "Tanya Pop",
+      "number": "227-91-26",
+      "email": "pop@gmail.com",
+      "skype": "pop",
+      "telegram": "pop",
+      "group": "colleagues"
+    },
+    {
+      "id": "id-14",
+      "name": "Lisa",
+      "number": "227-91-26",
+      "email": "",
+      "skype": "",
+      "telegram": "",
+      "group": "friends"
+    },
+    {
+      "id": "id-15",
+      "name": "Kostya Ikla",
+      "number": "227-91-26",
+      "email": "ikla@gmail.com",
+      "skype": "ikla",
+      "telegram": "ikla",
+      "group": "friends"
+    }
+  ]
+}

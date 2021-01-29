@@ -1,0 +1,28 @@
+.contact {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.contact:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.name {
+  display: flex;
+  align-self: center;
+  margin: 0;
+  font-size: 16px;
+}
+
+.buttonList {
+  display: flex;
+}
+
+.buttonItem:not(:last-child) {
+  margin-right: 5px;
+}
+
+.reactIcons {
+  fill: white;
+}
