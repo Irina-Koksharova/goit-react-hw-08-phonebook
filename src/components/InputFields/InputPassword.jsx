@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import { MdEmail } from 'react-icons/md';
+import { RiLockPasswordLine } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import { ErrorMessage } from '@hookform/error-message';
 import s from './Input.module.css';
 
-const InputEmail = ({ name, register, errors }) => {
+const InputPassword = ({ name, register, errors }) => {
   return (
     <li className={s.item}>
       <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
-        <MdEmail />
+        <RiLockPasswordLine />
       </IconContext.Provider>
 
       <input
@@ -23,8 +23,8 @@ const InputEmail = ({ name, register, errors }) => {
             message: 'This field cannot be empty',
           },
           pattern: {
-            value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-            message: 'Email is not valid',
+            value: /^[0-9-]+$/,
+            message: 'Password is not valid',
           },
         })}
       ></input>
@@ -44,10 +44,10 @@ const InputEmail = ({ name, register, errors }) => {
   );
 };
 
-InputEmail.propTypes = {
+InputPassword.propTypes = {
   name: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
-export default InputEmail;
+export default InputPassword;

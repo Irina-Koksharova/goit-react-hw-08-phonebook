@@ -1,7 +1,7 @@
 body {
   font-family: Andika New Basic, sans-serif;
   color: white;
-  background-color: rgb(51, 50, 50);
+  background-color: rgb(85, 83, 83);
 }
 
 ul {
@@ -19,4 +19,8 @@ h2 {
 
 h1 {
   font-size: 28px;
+}
+
+a {
+  text-decoration: none;
 }
