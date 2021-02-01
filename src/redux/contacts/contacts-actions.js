@@ -1,7 +1,4 @@
-import axios from 'axios';
 import { createAction } from '@reduxjs/toolkit';
-
-axios.defaults.baseURL = 'http://localhost:4040';
 
 const fetchContactsRequest = createAction('fetchContactsRequest');
 const fetchContactsSuccess = createAction('fetchContactsSuccess');

@@ -12,7 +12,7 @@ import {
   updateContactRequest,
   updateContactSuccess,
   updateContactError,
-} from './actions';
+} from './contacts-actions';
 
 axios.defaults.baseURL = 'http://localhost:4040';
 

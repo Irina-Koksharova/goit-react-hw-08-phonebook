@@ -1,5 +1,5 @@
 const titleMain = {
-  fontSize: '22px',
+  fontSize: '24px',
   fontWeight: '400',
 };
 

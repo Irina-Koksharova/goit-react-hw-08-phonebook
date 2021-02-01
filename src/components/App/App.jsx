@@ -1,22 +1,26 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getContacts, getIsLoading, getError } from '../../redux/selectors';
-import { startContainer, mainContainer, subContainer } from '../../styles/container-inline-styles';
-import { fetchContacts } from '../../redux/operation';
+import { getContacts, getIsLoading, getError } from '../../redux/contacts/contacts-selectors';
+import { container, mainContainer, subContainer } from '../../styles/container-inline-styles';
+import { section } from '../../styles/section-inline-styles';
+import { fetchContacts } from '../../redux/contacts/contacts-operation';
 import { titleMain } from '../../styles/title-inline-styles';
 import Spinner from '../Loader';
 import ServerError from '../ServerError';
-import Container from '../Container';
-import Title from '../Title';
 import ContactsForm from '../ContactsForm';
 import Filter from '../Filter';
 import ContactsList from '../ContactsList';
+import Container from '../Container';
+import Title from '../Title';
+import Section from '../../components/Section';
 import AuthNav from '../../components/AuthNav';
 import RegisterView from '../../views/RegisterView';
 import LogInView from '../../views/LogInView';
+
+//прописать ленивую загрузку компонентов
 
 const App = () => {
   const contacts = useSelector(getContacts);
@@ -29,17 +33,23 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Container style={startContainer}>
-      <AuthNav />
-      <Switch>
-        <Route path="/register">
-          <RegisterView />
-        </Route>
-        <Route path="/login">
-          <LogInView />
-        </Route>
-      </Switch>
-      {/* {isLoading && <Spinner />}
+    <Container style={container}>
+      <Title style={titleMain} children={'To enter the application, please, log in or register'} />
+      <Section style={section}>
+        <AuthNav />
+        <Switch>
+          <Route path="/register">
+            <RegisterView />
+          </Route>
+          <Route path="/login">
+            <LogInView />
+          </Route>
+          <Redirect to="/register" />
+        </Switch>
+      </Section>
+
+      <>
+        {/* {isLoading && <Spinner />}
       {error && <ServerError />}
       {contacts.length > 0 && (
         <Container style={mainContainer}>
@@ -56,6 +66,7 @@ const App = () => {
           </Container>
         </Container>
       )} */}
+      </>
     </Container>
   );
 };

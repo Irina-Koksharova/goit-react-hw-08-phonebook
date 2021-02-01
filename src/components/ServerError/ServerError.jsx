@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import s from './ServerError.module.css';
-import { getError } from '../../redux/selectors';
+import { getError } from '../../redux/contacts/contacts-selectors';
 
 const ServerError = () => {
   const error = useSelector(getError);

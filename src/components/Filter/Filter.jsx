@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FiSearch } from 'react-icons/fi';
 import { IconContext } from 'react-icons';
 import s from './Filter.module.css';
-import { changeFilter } from '../../redux/actions';
-import { getFilter } from '../../redux/selectors';
+import { changeFilter } from '../../redux/contacts/contacts-actions';
+import { getFilter } from '../../redux/contacts/contacts-selectors';
 
 const Filter = () => {
   const value = useSelector(getFilter);

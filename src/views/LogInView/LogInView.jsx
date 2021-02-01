@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import s from './LogInView.module.css';
 import InputEmail from '../../components/InputFields/InputEmail';
 import InputPassword from '../../components/InputFields/InputPassword';
 import Button from '../../components/Button';
+import { logInUser } from '../../redux/auth/auth-operations';
 
 const LogInView = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -23,7 +26,7 @@ const LogInView = () => {
   }, [isSubmitSuccessful, reset]);
 
   const onFormSubmit = data => {
-    console.log(data);
+    dispatch(logInUser(data));
   };
 
   return (

@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import s from './RegisterView.module.css';
 import InputName from '../../components/InputFields/InputName';
 import InputEmail from '../../components/InputFields/InputEmail';
 import InputPassword from '../../components/InputFields/InputPassword';
 import Button from '../../components/Button';
+import { registerUser } from '../../redux/auth/auth-operations';
 
 const RegisterView = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -24,7 +27,7 @@ const RegisterView = () => {
   }, [isSubmitSuccessful, reset]);
 
   const onFormSubmit = data => {
-    console.log(data);
+    dispatch(registerUser(data));
   };
 
   return (
