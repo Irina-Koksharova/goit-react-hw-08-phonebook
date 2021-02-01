@@ -8,6 +8,10 @@ const logInUserRequest = createAction('logInUserRequest');
 const logInUserSuccess = createAction('logInUserSuccess');
 const logInUserError = createAction('logInUserError');
 
+const logOutUserRequest = createAction('logOutUserRequest');
+const logOutUserSuccess = createAction('logOutUserSuccess');
+const logOutUserError = createAction('logOutUserError');
+
 export {
   registerUserRequest,
   registerUserSuccess,
@@ -15,4 +19,7 @@ export {
   logInUserRequest,
   logInUserSuccess,
   logInUserError,
+  logOutUserRequest,
+  logOutUserSuccess,
+  logOutUserError,
 };

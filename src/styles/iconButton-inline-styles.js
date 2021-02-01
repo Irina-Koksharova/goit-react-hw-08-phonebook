@@ -1,3 +1,9 @@
+const iconButtonQuit = {
+  width: '40px',
+  height: '40px',
+  backgroundColor: 'transparent',
+};
+
 const iconButtonPrimary = {
   width: '40px',
   height: '40px',
@@ -10,4 +16,4 @@ const iconButtonSecondary = {
   backgroundColor: ' rgb(85, 83, 83)',
 };
 
-export { iconButtonPrimary, iconButtonSecondary };
+export { iconButtonQuit, iconButtonPrimary, iconButtonSecondary };

@@ -5,16 +5,15 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getContacts, getIsLoading, getError } from '../../redux/contacts/contacts-selectors';
 import { container, mainContainer, subContainer } from '../../styles/container-inline-styles';
-import { section } from '../../styles/section-inline-styles';
+import { section, sectionAppBar } from '../../styles/section-inline-styles';
 import { fetchContacts } from '../../redux/contacts/contacts-operation';
-import { titleMain } from '../../styles/title-inline-styles';
 import Spinner from '../Loader';
 import ServerError from '../ServerError';
 import ContactsForm from '../ContactsForm';
 import Filter from '../Filter';
 import ContactsList from '../ContactsList';
 import Container from '../Container';
-import Title from '../Title';
+import AppBar from '../AppBar';
 import Section from '../../components/Section';
 import AuthNav from '../../components/AuthNav';
 import RegisterView from '../../views/RegisterView';
@@ -34,7 +33,10 @@ const App = () => {
 
   return (
     <Container style={container}>
-      <Title style={titleMain} children={'To enter the application, please, log in or register'} />
+      <Section style={sectionAppBar}>
+        <AppBar />
+      </Section>
+
       <Section style={section}>
         <AuthNav />
         <Switch>
