@@ -1,6 +1,6 @@
-import { useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Switch } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { container } from '../../styles/container-inline-styles';
 import { section, sectionAppBar } from '../../styles/section-inline-styles';
@@ -22,6 +22,12 @@ import PublicRoute from '../Routes/PublicRoute';
 const App = () => {
   const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
   const dispatch = useDispatch();
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    setCurrentLocation(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -38,7 +44,7 @@ const App = () => {
           </Section>
 
           <Section style={section}>
-            <AuthNav />
+            {currentLocation !== '/contacts' ? <AuthNav /> : null}
             <Switch>
               <Suspense fallback={<Spinner />}>
                 <PublicRoute path="/register" restricted>
