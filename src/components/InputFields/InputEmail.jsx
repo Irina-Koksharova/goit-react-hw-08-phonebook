@@ -23,7 +23,7 @@ const InputEmail = ({ name, register, errors }) => {
             message: 'This field cannot be empty',
           },
           pattern: {
-            value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+            value: /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z_-]+(\.[a-z_-]+)*\.[a-z]{2,6}$/,
             message: 'Email is not valid',
           },
         })}

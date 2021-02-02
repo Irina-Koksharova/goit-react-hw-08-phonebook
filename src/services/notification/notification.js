@@ -1,12 +1,9 @@
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import s from './notification.module.css';
 
-const notification = message => {
-  toast.dark(message, {
-    className: `${s.toast}`,
-    progressClassName: `${s.progress}`,
-    position: toast.POSITION.TOP_LEFT,
-  });
+const showNotification = message => {
+  toast.warn(message, { className: `${s.notify}` });
 };
 
-export default notification;
+export default showNotification;

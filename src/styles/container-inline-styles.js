@@ -4,7 +4,8 @@ const container = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '600px',
-  height: '550px',
+  height: '600px',
+  overflow: 'hidden',
 };
 
 const mainContainer = {

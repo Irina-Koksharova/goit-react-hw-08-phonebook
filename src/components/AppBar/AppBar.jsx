@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
-import Title from '../Title';
 import { titleMain } from '../../styles/title-inline-styles';
 import { getIsLoggedIn } from '../../redux/auth/auth-selectors';
 import UserMenu from '../UserMenu';
+import Title from '../Title';
 
 const AppBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn);

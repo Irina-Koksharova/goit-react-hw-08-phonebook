@@ -1,58 +1,55 @@
 import axios from 'axios';
-import {
-  registerUserRequest,
-  registerUserSuccess,
-  registerUserError,
-  logInUserRequest,
-  logInUserSuccess,
-  logInUserError,
-  logOutUserRequest,
-  logOutUserSuccess,
-  logOutUserError,
-} from './auth-actions';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { token } from '../axios-defaults';
 
-axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
-
-const token = {
-  set(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+const registerUser = createAsyncThunk(
+  'auth/registerUser',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/signup', userData);
+      token.set(data.token);
+      return data;
+    } catch ({ response }) {
+      return rejectWithValue(response.data);
+    }
   },
-  unset() {
-    axios.defaults.headers.common.Authorization = '';
-  },
-};
+);
 
-const registerUser = userData => async dispatch => {
-  dispatch(registerUserRequest());
-  try {
-    const { data } = await axios.post('/users/signup', userData);
-    token.set(data.token);
-    dispatch(registerUserSuccess(data));
-  } catch ({ message }) {
-    dispatch(registerUserError(message));
-  }
-};
-
-const logInUser = userData => async dispatch => {
-  dispatch(logInUserRequest());
+const logInUser = createAsyncThunk('auth/logInUser', async (userData, { rejectWithValue }) => {
   try {
     const { data } = await axios.post('/users/login', userData);
     token.set(data.token);
-    dispatch(logInUserSuccess(data));
-  } catch ({ message }) {
-    dispatch(logInUserError(message));
+    return data;
+  } catch ({ response }) {
+    return rejectWithValue(response.data);
   }
-};
+});
 
-const logOutUser = () => async dispatch => {
-  dispatch(logOutUserRequest());
+const logOutUser = createAsyncThunk('auth/logOutUser', async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.post('/users/logout');
     token.unset();
-    dispatch(logOutUserSuccess(data));
-  } catch ({ message }) {
-    dispatch(logOutUserError(message));
+    return data;
+  } catch ({ response }) {
+    return rejectWithValue(response.data);
   }
-};
+});
 
-export { registerUser, logInUser, logOutUser };
+const fetchCurrentUser = createAsyncThunk(
+  'auth/fetchCurrentUser',
+  async (_, { getState, rejectWithValue }) => {
+    const persistedToken = getState().auth.token;
+    if (persistedToken === null) {
+      return rejectWithValue();
+    }
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.get('/users/current');
+      return data;
+    } catch ({ response }) {
+      return rejectWithValue(response.data);
+    }
+  },
+);
+
+export { registerUser, logInUser, logOutUser, fetchCurrentUser };

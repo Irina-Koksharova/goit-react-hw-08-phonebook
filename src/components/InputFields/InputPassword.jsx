@@ -22,9 +22,9 @@ const InputPassword = ({ name, register, errors }) => {
             value: true,
             message: 'This field cannot be empty',
           },
-          pattern: {
-            value: /^[0-9-]+$/,
-            message: 'Password is not valid',
+          minLength: {
+            value: 7,
+            message: 'Minimum password length - 7 characters',
           },
         })}
       ></input>

@@ -1,75 +1,65 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { getContacts, getIsLoading, getError } from '../../redux/contacts/contacts-selectors';
-import { container, mainContainer, subContainer } from '../../styles/container-inline-styles';
+import { container } from '../../styles/container-inline-styles';
 import { section, sectionAppBar } from '../../styles/section-inline-styles';
-import { fetchContacts } from '../../redux/contacts/contacts-operation';
+import { fetchCurrentUser } from '../../redux/auth/auth-operations';
+import { getIsFetchingCurrentUser } from '../../redux/auth/auth-selectors';
 import Spinner from '../Loader';
-import ServerError from '../ServerError';
-import ContactsForm from '../ContactsForm';
-import Filter from '../Filter';
-import ContactsList from '../ContactsList';
 import Container from '../Container';
-import AppBar from '../AppBar';
 import Section from '../../components/Section';
+import AppBar from '../AppBar';
 import AuthNav from '../../components/AuthNav';
 import RegisterView from '../../views/RegisterView';
 import LogInView from '../../views/LogInView';
+import ContactsView from '../../views/ContactsView';
+import PrivateRoute from '../Routes/PrivateRoute';
+import PublicRoute from '../Routes/PublicRoute';
 
 //прописать ленивую загрузку компонентов
 
 const App = () => {
-  const contacts = useSelector(getContacts);
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   return (
-    <Container style={container}>
-      <Section style={sectionAppBar}>
-        <AppBar />
-      </Section>
+    <>
+      {isFetchingCurrentUser ? (
+        <Spinner />
+      ) : (
+        <Container style={container}>
+          <Section style={sectionAppBar}>
+            <AppBar />
+          </Section>
 
-      <Section style={section}>
-        <AuthNav />
-        <Switch>
-          <Route path="/register">
-            <RegisterView />
-          </Route>
-          <Route path="/login">
-            <LogInView />
-          </Route>
-          <Redirect to="/register" />
-        </Switch>
-      </Section>
+          <Section style={section}>
+            <AuthNav />
+            <Switch>
+              <Suspense fallback={<Spinner />}>
+                <PublicRoute path="/register" restricted>
+                  <RegisterView />
+                </PublicRoute>
 
-      <>
-        {/* {isLoading && <Spinner />}
-      {error && <ServerError />}
-      {contacts.length > 0 && (
-        <Container style={mainContainer}>
-          <Container style={subContainer}>
-            <Title children={'Phonebook'} style={titleMain} />
-            <ContactsForm />
-            <ToastContainer autoClose={3000} limit={1} style={{ width: '352px' }} />
-          </Container>
+                <PublicRoute path="/login" restricted>
+                  <LogInView />
+                </PublicRoute>
 
-          <Container style={subContainer}>
-            <Title children={'Contacts'} style={titleMain} />
-            <Filter />
-            <ContactsList />
-          </Container>
+                <PrivateRoute>
+                  <ContactsView path="/contacts" />
+                </PrivateRoute>
+              </Suspense>
+            </Switch>
+          </Section>
+
+          <ToastContainer autoClose={5000} />
         </Container>
-      )} */}
-      </>
-    </Container>
+      )}
+    </>
   );
 };
 

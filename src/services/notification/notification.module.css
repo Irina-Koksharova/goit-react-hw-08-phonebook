@@ -1,13 +1,9 @@
-.toast {
-  height: 100px;
-  top: 230px;
-  left: 57px;
+.notify {
+  top: 370px;
+  right: 170px;
   text-align: center;
   background-color: black;
   color: red;
+  width: 410px;
   border-radius: 4px;
-}
-
-.progress {
-  background: transparent;
 }
