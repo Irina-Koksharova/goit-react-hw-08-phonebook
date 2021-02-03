@@ -10,7 +10,7 @@ const registerUser = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch ({ response }) {
-      return rejectWithValue(response.data);
+      return rejectWithValue(response.status);
     }
   },
 );
@@ -21,7 +21,7 @@ const logInUser = createAsyncThunk('auth/logInUser', async (userData, { rejectWi
     token.set(data.token);
     return data;
   } catch ({ response }) {
-    return rejectWithValue(response.data);
+    return rejectWithValue(response.status);
   }
 });
 
@@ -31,7 +31,7 @@ const logOutUser = createAsyncThunk('auth/logOutUser', async (_, { rejectWithVal
     token.unset();
     return data;
   } catch ({ response }) {
-    return rejectWithValue(response.data);
+    return rejectWithValue(response.status);
   }
 });
 
@@ -40,14 +40,14 @@ const fetchCurrentUser = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     const persistedToken = getState().auth.token;
     if (persistedToken === null) {
-      return rejectWithValue();
+      return rejectWithValue(null);
     }
     token.set(persistedToken);
     try {
       const { data } = await axios.get('/users/current');
       return data;
     } catch ({ response }) {
-      return rejectWithValue(response.data);
+      return rejectWithValue(response.status);
     }
   },
 );

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import s from './LogInView.module.css';
 import { logInUser } from '../../redux/auth/auth-operations';
 import { getIsLoading, getError } from '../../redux/auth/auth-selectors';
-import showNotification from '../../services/notification';
+import { clientError, showNotification } from '../../services/notification/notification';
 import Spinner from '../../components/Loader';
 import InputEmail from '../../components/InputFields/InputEmail';
 import InputPassword from '../../components/InputFields/InputPassword';
@@ -30,8 +30,8 @@ const LogInView = () => {
       isFirstRender.current = false;
       return;
     }
-    if (isError) {
-      showNotification('There is no such user😨. Please, check your email and password');
+    if (isError === 400) {
+      showNotification(clientError);
     }
   }, [isError]);
 

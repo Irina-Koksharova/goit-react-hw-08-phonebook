@@ -5,7 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import { container } from '../../styles/container-inline-styles';
 import { section, sectionAppBar } from '../../styles/section-inline-styles';
 import { fetchCurrentUser } from '../../redux/auth/auth-operations';
-import { getIsFetchingCurrentUser } from '../../redux/auth/auth-selectors';
+import { getIsFetchingCurrentUser, getError } from '../../redux/auth/auth-selectors';
+import { serverError, showNotification } from '../../services/notification/notification';
 import Spinner from '../Loader';
 import Container from '../Container';
 import Section from '../../components/Section';
@@ -20,10 +21,17 @@ import PublicRoute from '../Routes/PublicRoute';
 //прописать ленивую загрузку компонентов
 
 const App = () => {
+  const isError = useSelector(getError);
   const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
   const dispatch = useDispatch();
   const [currentLocation, setCurrentLocation] = useState(null);
   const location = useLocation();
+
+  useEffect(() => {
+    if (isError === 404) {
+      showNotification(serverError);
+    }
+  }, [isError]);
 
   useEffect(() => {
     setCurrentLocation(location.pathname);
@@ -45,21 +53,21 @@ const App = () => {
 
           <Section style={section}>
             {currentLocation !== '/contacts' ? <AuthNav /> : null}
-            <Switch>
-              <Suspense fallback={<Spinner />}>
-                <PublicRoute path="/register" restricted>
-                  <RegisterView />
-                </PublicRoute>
-
-                <PublicRoute path="/login" restricted>
+            <Suspense fallback={<Spinner />}>
+              <Switch>
+                <PublicRoute exact path="/login" redirectTo="/contacts" restricted>
                   <LogInView />
                 </PublicRoute>
 
+                <PublicRoute exact path="/register" restricted>
+                  <RegisterView />
+                </PublicRoute>
+
                 <PrivateRoute>
-                  <ContactsView path="/contacts" />
+                  <ContactsView path="/contacts" redirectTo="/login" />
                 </PrivateRoute>
-              </Suspense>
-            </Switch>
+              </Switch>
+            </Suspense>
           </Section>
 
           <ToastContainer autoClose={5000} />

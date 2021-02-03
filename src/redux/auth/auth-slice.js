@@ -28,9 +28,9 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
-    [registerUser.rejected](state, { error }) {
+    [registerUser.rejected](state, { payload }) {
       state.isLoading = false;
-      state.error = error.message;
+      state.error = payload;
     },
     [logInUser.pending](state, _) {
       state.isLoading = true;
@@ -43,9 +43,9 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
-    [logInUser.rejected](state, { error }) {
+    [logInUser.rejected](state, { payload }) {
       state.isLoading = false;
-      state.error = error.message;
+      state.error = payload;
     },
     [logOutUser.pending](state, _) {
       state.isLoading = true;
@@ -58,20 +58,23 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
-    [logOutUser.rejected](state, { error }) {
+    [logOutUser.rejected](state, { payload }) {
       state.isLoading = false;
-      state.error = error.message;
+      state.error = payload;
     },
     [fetchCurrentUser.pending](state, _) {
       state.isFetchingCurrentUser = true;
+      state.error = null;
     },
     [fetchCurrentUser.fulfilled](state, action) {
       state.user = action.payload;
       state.isLoggedIn = true;
       state.isFetchingCurrentUser = false;
+      state.error = null;
     },
-    [fetchCurrentUser.rejected](state, _) {
+    [fetchCurrentUser.rejected](state, { payload }) {
       state.isFetchingCurrentUser = false;
+      state.error = payload;
     },
   },
 });
