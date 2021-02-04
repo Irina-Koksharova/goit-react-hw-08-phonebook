@@ -3,8 +3,8 @@ const container = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '600px',
-  height: '600px',
+  width: '450px',
+  minHeight: '600px',
   overflow: 'hidden',
 };
 

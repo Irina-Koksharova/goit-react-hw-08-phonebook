@@ -1,9 +1,11 @@
 .notify {
-  top: 370px;
-  right: 170px;
+  top: 385px;
+  right: 80px;
+  width: 380px;
   text-align: center;
-  background-color: black;
+  font-size: 15px;
+  letter-spacing: 1px;
   color: red;
-  width: 410px;
+  background-color: black;
   border-radius: 4px;
 }

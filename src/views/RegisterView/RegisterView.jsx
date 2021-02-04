@@ -45,7 +45,7 @@ const RegisterView = () => {
             <InputPassword key="password" name="password" register={register} errors={errors} />
           </ul>
           <Button
-            children={'Register'}
+            children={'Sign Up'}
             aria-label="Зарегистрироваться"
             style={{ alignSelf: 'flex-end', marginTop: '20px' }}
           />

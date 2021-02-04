@@ -56,9 +56,9 @@ const LogInView = () => {
             <InputPassword key="password" name="password" register={register} errors={errors} />
           </ul>
           <Button
-            children={'Log In'}
+            children={'Sign In'}
             aria-label="Войти"
-            style={{ alignSelf: 'flex-end', marginTop: '85px' }}
+            style={{ alignSelf: 'flex-end', marginTop: '75px' }}
           />
         </>
       )}

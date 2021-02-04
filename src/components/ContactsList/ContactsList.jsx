@@ -8,7 +8,6 @@ import { deleteContact, updateContact } from '../../redux/contacts/contacts-oper
 import { changeFilter } from '../../redux/contacts/contacts-actions';
 import { getVisibleContacts, getFilter } from '../../redux/contacts/contacts-selectors';
 import { popUpContainer, isShown } from '../../styles/container-inline-styles';
-import { titleMain } from '../../styles/title-inline-styles';
 import { iconButtonPrimary } from '../../styles/iconButton-inline-styles';
 import ContactItem from '../ContactItem/ContactItem';
 import Container from '../Container';
@@ -88,7 +87,7 @@ const ContactsList = () => {
         ))}
       </ul>
       <Container style={style}>
-        <Title children={'Contact details'} style={titleMain} />
+        <Title children={'Contact details'} />
         <form className={s.form} onSubmit={handleSubmit(onFormSubmit)}>
           <ul>
             <InputName key="name" name="name" register={register} errors={errors} />

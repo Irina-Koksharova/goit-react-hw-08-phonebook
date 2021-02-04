@@ -1,18 +1,18 @@
 .list {
   display: flex;
   align-items: center;
-  height: 50px;
-  margin-bottom: 20px;
+  height: 45px;
+  margin-bottom: 15px;
 }
 
 .listItem:not(:last-child) {
-  margin-right: 20px;
+  margin-right: 15px;
 }
 
 .link {
   display: inline-block;
   padding: 10px;
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 0.8px;
   color: rgb(97, 96, 96);
 }

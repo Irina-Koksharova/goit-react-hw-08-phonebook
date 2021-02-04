@@ -5,7 +5,7 @@ import s from './Loader.module.css';
 const Spinner = () => {
   return (
     <div className={s.spinner}>
-      <Loader type="Circles" color="white" height={100} width={100} />
+      <Loader type="Circles" color="white" height={70} width={70} />
     </div>
   );
 };

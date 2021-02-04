@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { container } from '../../styles/container-inline-styles';
-import { section, sectionAppBar } from '../../styles/section-inline-styles';
 import { fetchCurrentUser } from '../../redux/auth/auth-operations';
 import { getIsFetchingCurrentUser, getError } from '../../redux/auth/auth-selectors';
 import { serverError, showNotification } from '../../services/notification/notification';
 import Spinner from '../Loader';
 import Container from '../Container';
-import Section from '../../components/Section';
+import Header from '../Header';
+import Main from '../Main';
 import AppBar from '../AppBar';
 import AuthNav from '../../components/AuthNav';
 import RegisterView from '../../views/RegisterView';
@@ -47,12 +47,12 @@ const App = () => {
         <Spinner />
       ) : (
         <Container style={container}>
-          <Section style={sectionAppBar}>
+          <Header>
             <AppBar />
-          </Section>
+          </Header>
 
-          <Section style={section}>
-            {currentLocation !== '/contacts' ? <AuthNav /> : null}
+          <Main>
+            {currentLocation !== '/contacts' && <AuthNav />}
             <Suspense fallback={<Spinner />}>
               <Switch>
                 <PublicRoute exact path="/login" redirectTo="/contacts" restricted>
@@ -68,7 +68,7 @@ const App = () => {
                 </PrivateRoute>
               </Switch>
             </Suspense>
-          </Section>
+          </Main>
 
           <ToastContainer autoClose={5000} />
         </Container>

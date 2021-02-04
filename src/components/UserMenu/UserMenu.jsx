@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ImExit } from 'react-icons/im';
 import { IconContext } from 'react-icons';
 import s from './UserMenu.module.css';
-import { titleMain } from '../../styles/title-inline-styles';
 import { iconButtonQuit } from '../../styles/iconButton-inline-styles';
 import { getUsername } from '../../redux/auth/auth-selectors';
 import { logOutUser } from '../../redux/auth/auth-operations';
@@ -15,7 +14,7 @@ const UserMenu = () => {
 
   return (
     <>
-      <Title style={titleMain} children={`Welcome, ${user}!`} />
+      <Title children={`Welcome, ${user}!`} />
       <IconButton
         type="submit"
         aria-label="Кнопка 'Выйти'"

@@ -16,7 +16,7 @@ const Filter = () => {
         id="input"
         value={value}
         onChange={e => dispatch(changeFilter(e.target.value))}
-        placeholder="Find contact by name"
+        placeholder="find contact by name"
         autoComplete="off"
       />
       <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
