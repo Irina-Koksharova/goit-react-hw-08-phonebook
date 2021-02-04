@@ -1,4 +1,21 @@
 .container {
-  width: 250px;
-  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 310px;
+  height: 510px;
+  padding: 30px;
+}
+
+.reactIcons {
+  width: 20px;
+  height: 20px;
+  fill: white;
 }

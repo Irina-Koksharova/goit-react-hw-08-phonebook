@@ -24,10 +24,7 @@
     "react-toastify": "^6.2.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "shortid": "^2.2.16",
-    "validator": "^13.5.2",
-    "web-vitals": "^0.2.4",
-    "yup": "^0.32.8"
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",

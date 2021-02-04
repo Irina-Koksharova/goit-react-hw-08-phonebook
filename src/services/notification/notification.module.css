@@ -8,4 +8,18 @@
   color: red;
   background-color: black;
   border-radius: 4px;
+  pointer-events: auto;
+}
+
+.contactsNotify {
+  top: 270px;
+  right: 18px;
+  width: 250px;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: red;
+  background-color: black;
+  border-radius: 4px;
+  pointer-events: auto;
 }

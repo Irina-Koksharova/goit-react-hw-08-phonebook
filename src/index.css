@@ -1,4 +1,29 @@
+#root-popUp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: 310px;
+  height: 510px;
+  background-color: transparent;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#root-notify {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 600px;
+  background-color: transparent;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 body {
+  overflow-x: hidden;
   font-family: Andika New Basic, sans-serif;
   color: white;
   background-color: rgb(85, 83, 83);

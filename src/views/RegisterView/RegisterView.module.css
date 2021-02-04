@@ -2,5 +2,6 @@
   align-self: center;
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 410px;
+  padding: 15px 30px 30px;
 }

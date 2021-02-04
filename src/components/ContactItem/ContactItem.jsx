@@ -4,7 +4,7 @@ import { MdDelete } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 import s from './ContactItem.module.css';
 import IconButton from '../IconButton';
-import { iconButtonSecondary } from '../../styles/iconButton-inline-styles';
+import { iconButtonEdit } from '../../styles/iconButton';
 
 const ContactItem = ({ id, name, onChange, onDelete }) => {
   return (
@@ -16,8 +16,8 @@ const ContactItem = ({ id, name, onChange, onDelete }) => {
           <IconButton
             type="button"
             onClick={() => onChange(id)}
-            aria-label="Кнопка 'Редактировать контакт'"
-            style={iconButtonSecondary}
+            aria-label="Редактировать контакт"
+            style={iconButtonEdit}
           >
             <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
               <AiOutlineEdit />
@@ -28,8 +28,8 @@ const ContactItem = ({ id, name, onChange, onDelete }) => {
           <IconButton
             type="button"
             onClick={() => onDelete(id)}
-            aria-label="Кнопка 'Удалить контакт'"
-            style={{ ...iconButtonSecondary, marginRight: '10px' }}
+            aria-label="Удалить контакт"
+            style={{ ...iconButtonEdit, marginRight: '10px' }}
           >
             <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
               <MdDelete />

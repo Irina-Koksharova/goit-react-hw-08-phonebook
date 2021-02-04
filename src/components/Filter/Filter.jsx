@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FiSearch } from 'react-icons/fi';
 import { IconContext } from 'react-icons';
 import s from './Filter.module.css';
-import { changeFilter } from '../../redux/contacts/contacts-actions';
+import { contactsSlice } from '../../redux/contacts/contacts-slice';
 import { getFilter } from '../../redux/contacts/contacts-selectors';
 
 const Filter = () => {
@@ -15,7 +15,9 @@ const Filter = () => {
         className={s.input}
         id="input"
         value={value}
-        onChange={e => dispatch(changeFilter(e.target.value))}
+        onChange={e =>
+          dispatch(contactsSlice.actions.changeFilter(e.target.value))
+        }
         placeholder="find contact by name"
         autoComplete="off"
       />

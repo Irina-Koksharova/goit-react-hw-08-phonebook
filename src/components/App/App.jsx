@@ -1,11 +1,17 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Switch, useLocation } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import { container } from '../../styles/container-inline-styles';
+import { container } from '../../styles/container';
 import { fetchCurrentUser } from '../../redux/auth/auth-operations';
-import { getIsFetchingCurrentUser, getError } from '../../redux/auth/auth-selectors';
-import { serverError, showNotification } from '../../services/notification/notification';
+import {
+  getIsFetchingCurrentUser,
+  getError,
+} from '../../redux/auth/auth-selectors';
+import {
+  serverError,
+  showNotification,
+} from '../../services/notification/notification';
+import Notify from '../Notify';
 import Spinner from '../Loader';
 import Container from '../Container';
 import Header from '../Header';
@@ -55,7 +61,12 @@ const App = () => {
             {currentLocation !== '/contacts' && <AuthNav />}
             <Suspense fallback={<Spinner />}>
               <Switch>
-                <PublicRoute exact path="/login" redirectTo="/contacts" restricted>
+                <PublicRoute
+                  exact
+                  path="/login"
+                  redirectTo="/contacts"
+                  restricted
+                >
                   <LogInView />
                 </PublicRoute>
 
@@ -70,7 +81,7 @@ const App = () => {
             </Suspense>
           </Main>
 
-          <ToastContainer autoClose={5000} />
+          <Notify />
         </Container>
       )}
     </>
