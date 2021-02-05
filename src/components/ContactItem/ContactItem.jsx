@@ -16,16 +16,21 @@ import IconButton from '../IconButton';
 const ContactItem = ({ id, name }) => {
   const filter = useSelector(contactsSelectors.getFilter);
   const dispatch = useDispatch();
+  const {
+    changeEditFormStyle,
+    editContact,
+    changeFilter,
+  } = contactsSlice.actions;
 
   const onEdit = id => {
-    dispatch(contactsSlice.actions.changeEditFormStyle(isShown));
-    dispatch(contactsSlice.actions.editContact(id));
+    dispatch(changeEditFormStyle(isShown));
+    dispatch(editContact(id));
   };
 
   const onDelete = id => {
     dispatch(contactsOperations.deleteContact(id));
     if (filter !== '') {
-      dispatch(contactsSlice.actions.changeFilter(''));
+      dispatch(changeFilter(''));
     }
   };
 

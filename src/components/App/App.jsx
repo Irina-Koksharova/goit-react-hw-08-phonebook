@@ -39,7 +39,7 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (authError === 404 || contactsError === 404) {
+    if (authError === 500 || contactsError === 500) {
       showNotification(serverError);
     }
   }, [authError, contactsError]);

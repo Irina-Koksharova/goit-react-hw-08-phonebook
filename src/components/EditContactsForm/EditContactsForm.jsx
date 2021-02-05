@@ -30,9 +30,7 @@ const EditContactsForm = ({ onClick }) => {
   });
 
   useEffect(() => {
-    const selectedContact = contacts.find(
-      contact => contact.id === selectedContactId,
-    );
+    const selectedContact = contacts.find(({ id }) => id === selectedContactId);
     const setInputValues = ({ name, number }) => {
       const inputFields = { name, number };
       return Object.entries(inputFields).forEach(prop =>
@@ -51,9 +49,7 @@ const EditContactsForm = ({ onClick }) => {
   }, [isSubmitSuccessful, reset]);
 
   const onFormSubmit = data => {
-    const includesContact = contacts.some(
-      contact => contact.name === data.name,
-    );
+    const includesContact = contacts.some(({ name }) => name === data.name);
     const update = { ...data, id: selectedContactId };
     if (!includesContact) {
       dispatch(contactsOperations.updateContact(update));

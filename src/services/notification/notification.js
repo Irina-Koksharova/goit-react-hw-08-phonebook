@@ -8,8 +8,6 @@ const clientError =
 const serverError =
   'Sorry, there are some technical problems. Please, try again later';
 
-const contactsNotify = 'You have no contacts yet';
-
 const showNotification = message => {
   toast.warn(message, { className: `${s.notify}` });
 };
@@ -18,10 +16,4 @@ const contactsNotification = message => {
   toast.warn(message, { className: `${s.contactsNotify}` });
 };
 
-export {
-  clientError,
-  serverError,
-  contactsNotify,
-  showNotification,
-  contactsNotification,
-};
+export { clientError, serverError, showNotification, contactsNotification };

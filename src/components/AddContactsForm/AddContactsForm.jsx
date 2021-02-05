@@ -34,9 +34,7 @@ const AddContactsForm = ({ onClick }) => {
   }, [isSubmitSuccessful, reset]);
 
   const onFormSubmit = data => {
-    const includesContact = contacts.some(
-      contact => contact.name === data.name,
-    );
+    const includesContact = contacts.some(({ name }) => name === data.name);
     if (!includesContact) {
       dispatch(contactsOperations.addContact(data));
       onClick();

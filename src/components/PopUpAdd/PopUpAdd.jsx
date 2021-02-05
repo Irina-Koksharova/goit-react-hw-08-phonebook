@@ -15,7 +15,7 @@ const PopUpAdd = ({ children, style }) => {
 
 PopUpAdd.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.string.isRequired,
+  style: PropTypes.object.isRequired,
 };
 
 export default PopUpAdd;
