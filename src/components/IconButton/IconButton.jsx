@@ -14,8 +14,9 @@ IconButton.defaultProps = {
 };
 
 IconButton.propTypes = {
-  onClick: PropTypes.func,
+  type: PropTypes.string,
   children: PropTypes.node,
+  onClick: PropTypes.func,
   'aria-label': PropTypes.string.isRequired,
 };
 

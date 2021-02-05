@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, logInUser, logOutUser, fetchCurrentUser } from './auth-operations';
+import authOperations from './auth-operations';
+
+const {
+  registerUser,
+  logInUser,
+  logOutUser,
+  fetchCurrentUser,
+} = authOperations;
 
 const initialState = {
   user: {
@@ -79,4 +86,4 @@ const authSlice = createSlice({
   },
 });
 
-export { authSlice };
+export default authSlice;

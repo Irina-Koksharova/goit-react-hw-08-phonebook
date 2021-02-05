@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { token } from '../axios-defaults';
 
 const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
@@ -9,7 +8,7 @@ const fetchContacts = createAsyncThunk(
       const { data } = await axios.get('/contacts');
       return data;
     } catch ({ response }) {
-      return rejectWithValue(response.data);
+      return rejectWithValue(response.status);
     }
   },
 );
@@ -21,7 +20,7 @@ const addContact = createAsyncThunk(
       const { data } = await axios.post('/contacts', contactData);
       return data;
     } catch ({ response }) {
-      return rejectWithValue(response.data);
+      return rejectWithValue(response.status);
     }
   },
 );
@@ -33,9 +32,30 @@ const deleteContact = createAsyncThunk(
       const { data } = await axios.delete(`/contacts/${contactId}`);
       return data;
     } catch ({ response }) {
-      return rejectWithValue(response.data);
+      return rejectWithValue(response.status);
     }
   },
 );
 
-export { fetchContacts, addContact, deleteContact };
+const updateContact = createAsyncThunk(
+  'contacts/updateContact',
+  async (data, thunkAPI) => {
+    const { id, name, number } = data;
+    const update = { name, number };
+    try {
+      const action = await axios.patch(`/contacts/${id}`, update);
+      return action.data;
+    } catch ({ response }) {
+      return thunkAPI.rejectWithValue(response.status);
+    }
+  },
+);
+
+const contactsOperations = {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  updateContact,
+};
+
+export default contactsOperations;

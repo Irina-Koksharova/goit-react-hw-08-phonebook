@@ -2,11 +2,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FiSearch } from 'react-icons/fi';
 import { IconContext } from 'react-icons';
 import s from './Filter.module.css';
-import { contactsSlice } from '../../redux/contacts/contacts-slice';
-import { getFilter } from '../../redux/contacts/contacts-selectors';
+import { contactsSlice } from '../../redux/contacts';
+import { contactsSelectors } from '../../redux/contacts';
 
 const Filter = () => {
-  const value = useSelector(getFilter);
+  const value = useSelector(contactsSelectors.getFilter);
   const dispatch = useDispatch();
 
   return (

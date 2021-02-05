@@ -3,13 +3,12 @@ import { ImExit } from 'react-icons/im';
 import { IconContext } from 'react-icons';
 import s from './UserMenu.module.css';
 import { iconButtonQuit } from '../../styles/iconButton';
-import { getUsername } from '../../redux/auth/auth-selectors';
-import { logOutUser } from '../../redux/auth/auth-operations';
+import { authOperations, authSelectors } from '../../redux/auth';
 import Title from '../Title';
 import IconButton from '../IconButton';
 
 const UserMenu = () => {
-  const user = useSelector(getUsername);
+  const user = useSelector(authSelectors.getUsername);
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +18,7 @@ const UserMenu = () => {
         type="submit"
         aria-label="Выйти"
         style={iconButtonQuit}
-        onClick={() => dispatch(logOutUser())}
+        onClick={() => dispatch(authOperations.logOutUser())}
       >
         <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
           <ImExit />

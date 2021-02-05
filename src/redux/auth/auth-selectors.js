@@ -8,4 +8,12 @@ const getIsLoading = state => state.auth.isLoading;
 
 const getError = state => state.auth.error;
 
-export { getIsLoggedIn, getUsername, getIsFetchingCurrentUser, getIsLoading, getError };
+const authSelectors = {
+  getIsLoggedIn,
+  getUsername,
+  getIsFetchingCurrentUser,
+  getIsLoading,
+  getError,
+};
+
+export default authSelectors;

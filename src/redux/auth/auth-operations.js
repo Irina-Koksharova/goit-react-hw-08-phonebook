@@ -15,25 +15,31 @@ const registerUser = createAsyncThunk(
   },
 );
 
-const logInUser = createAsyncThunk('auth/logInUser', async (userData, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.post('/users/login', userData);
-    token.set(data.token);
-    return data;
-  } catch ({ response }) {
-    return rejectWithValue(response.status);
-  }
-});
+const logInUser = createAsyncThunk(
+  'auth/logInUser',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/login', userData);
+      token.set(data.token);
+      return data;
+    } catch ({ response }) {
+      return rejectWithValue(response.status);
+    }
+  },
+);
 
-const logOutUser = createAsyncThunk('auth/logOutUser', async (_, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.post('/users/logout');
-    token.unset();
-    return data;
-  } catch ({ response }) {
-    return rejectWithValue(response.status);
-  }
-});
+const logOutUser = createAsyncThunk(
+  'auth/logOutUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/logout');
+      token.unset();
+      return data;
+    } catch ({ response }) {
+      return rejectWithValue(response.status);
+    }
+  },
+);
 
 const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
@@ -52,4 +58,11 @@ const fetchCurrentUser = createAsyncThunk(
   },
 );
 
-export { registerUser, logInUser, logOutUser, fetchCurrentUser };
+const operations = {
+  registerUser,
+  logInUser,
+  logOutUser,
+  fetchCurrentUser,
+};
+
+export default operations;

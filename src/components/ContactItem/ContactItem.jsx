@@ -1,12 +1,34 @@
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 import s from './ContactItem.module.css';
-import IconButton from '../IconButton';
 import { iconButtonEdit } from '../../styles/iconButton';
+import {
+  contactsOperations,
+  contactsSelectors,
+  contactsSlice,
+} from '../../redux/contacts';
+import { isShown } from '../../styles/overlay';
+import IconButton from '../IconButton';
 
-const ContactItem = ({ id, name, onChange, onDelete }) => {
+const ContactItem = ({ id, name }) => {
+  const filter = useSelector(contactsSelectors.getFilter);
+  const dispatch = useDispatch();
+
+  const onEdit = id => {
+    dispatch(contactsSlice.actions.changeEditFormStyle(isShown));
+    dispatch(contactsSlice.actions.editContact(id));
+  };
+
+  const onDelete = id => {
+    dispatch(contactsOperations.deleteContact(id));
+    if (filter !== '') {
+      dispatch(contactsSlice.actions.changeFilter(''));
+    }
+  };
+
   return (
     <li className={s.contact}>
       <p className={s.name}>{name}</p>
@@ -15,7 +37,7 @@ const ContactItem = ({ id, name, onChange, onDelete }) => {
         <li className={s.buttonItem}>
           <IconButton
             type="button"
-            onClick={() => onChange(id)}
+            onClick={() => onEdit(id)}
             aria-label="Редактировать контакт"
             style={iconButtonEdit}
           >
@@ -44,8 +66,6 @@ const ContactItem = ({ id, name, onChange, onDelete }) => {
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactItem;

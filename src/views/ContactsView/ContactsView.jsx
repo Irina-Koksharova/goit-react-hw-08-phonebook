@@ -1,54 +1,40 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RiUserAddLine } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 import s from './ContactsView.module.css';
-import { getContacts } from '../../redux/contacts/contacts-selectors';
 import {
-  contactsNotify,
-  contactsNotification,
-} from '../../services/notification/notification';
-import { getIsLoading } from '../../redux/auth/auth-selectors';
-import { fetchContacts } from '../../redux/contacts/contacts-operation';
+  contactsOperations,
+  contactsSelectors,
+  contactsSlice,
+} from '../../redux/contacts';
+import { authSelectors } from '../../redux/auth';
 import { iconButtonForm } from '../../styles/iconButton';
 import { contactsContainer } from '../../styles/container';
-import { overlay, isShown } from '../../styles/overlay';
+import { isHidden, isShown } from '../../styles/overlay';
 import Spinner from '../../components/Loader';
 import Container from '../../components/Container';
 import Filter from '../../components/Filter';
 import ContactsList from '../../components/ContactsList';
 import IconButton from '../../components/IconButton';
-import PopUp from '../../components/PopUp';
+import PopUpAdd from '../../components/PopUpAdd';
+import PopUpEdit from '../../components/PopUpEdit';
 import AddContactsForm from '../../components/AddContactsForm';
+import EditContactsForm from '../../components/EditContactsForm';
 
 const ContactsView = () => {
-  const [contactFormStyle, setContactFormStyle] = useState(overlay);
-  const isFirstRender = useRef(true);
-  const isLoading = useSelector(getIsLoading);
-  const contacts = useSelector(getContacts);
+  const isLoading = useSelector(authSelectors.getIsLoading);
+  const currentAddFormStyle = useSelector(
+    contactsSelectors.getAddFormCurrentStyle,
+  );
+  const currentEditFormStyle = useSelector(
+    contactsSelectors.getEditFormCurrentStyle,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    if (contacts.length === 0) {
-      contactsNotification(contactsNotify);
-    }
-  }, [contacts.length]);
-
-  const addNewContact = () => {
-    setContactFormStyle({ ...overlay, ...isShown });
-  };
-
-  const exitContactsForm = () => {
-    setContactFormStyle(overlay);
-  };
 
   return (
     <>
@@ -63,7 +49,9 @@ const ContactsView = () => {
               type="button"
               aria-label="Добавить контакт"
               style={iconButtonForm}
-              onClick={addNewContact}
+              onClick={() =>
+                dispatch(contactsSlice.actions.changeAddFormStyle(isShown))
+              }
             >
               <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
                 <RiUserAddLine />
@@ -71,9 +59,21 @@ const ContactsView = () => {
             </IconButton>
           </Container>
 
-          <PopUp style={contactFormStyle}>
-            <AddContactsForm onClick={exitContactsForm} />
-          </PopUp>
+          <PopUpAdd style={currentAddFormStyle}>
+            <AddContactsForm
+              onClick={() =>
+                dispatch(contactsSlice.actions.changeAddFormStyle(isHidden))
+              }
+            />
+          </PopUpAdd>
+
+          <PopUpEdit style={currentEditFormStyle}>
+            <EditContactsForm
+              onClick={() =>
+                dispatch(contactsSlice.actions.changeEditFormStyle(isHidden))
+              }
+            />
+          </PopUpEdit>
         </>
       )}
     </>

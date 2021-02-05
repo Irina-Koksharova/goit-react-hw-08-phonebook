@@ -1,12 +1,9 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Switch, useLocation } from 'react-router-dom';
 import { container } from '../../styles/container';
-import { fetchCurrentUser } from '../../redux/auth/auth-operations';
-import {
-  getIsFetchingCurrentUser,
-  getError,
-} from '../../redux/auth/auth-selectors';
+import { authOperations, authSelectors } from '../../redux/auth';
+import { contactsSelectors } from '../../redux/contacts';
 import {
   serverError,
   showNotification,
@@ -18,33 +15,41 @@ import Header from '../Header';
 import Main from '../Main';
 import AppBar from '../AppBar';
 import AuthNav from '../../components/AuthNav';
-import RegisterView from '../../views/RegisterView';
-import LogInView from '../../views/LogInView';
-import ContactsView from '../../views/ContactsView';
 import PrivateRoute from '../Routes/PrivateRoute';
 import PublicRoute from '../Routes/PublicRoute';
 
-//прописать ленивую загрузку компонентов
+const LogInView = lazy(() =>
+  import('../../views/LogInView' /* webpackChunkName: "login" */),
+);
+const RegisterView = lazy(() =>
+  import('../../views/RegisterView' /* webpackChunkName: "register" */),
+);
+const ContactsView = lazy(() =>
+  import('../../views/ContactsView' /* webpackChunkName: "contacts" */),
+);
 
 const App = () => {
-  const isError = useSelector(getError);
-  const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
+  const authError = useSelector(authSelectors.getError);
+  const contactsError = useSelector(contactsSelectors.getError);
+  const isFetchingCurrentUser = useSelector(
+    authSelectors.getIsFetchingCurrentUser,
+  );
   const dispatch = useDispatch();
   const [currentLocation, setCurrentLocation] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
-    if (isError === 404) {
+    if (authError === 404 || contactsError === 404) {
       showNotification(serverError);
     }
-  }, [isError]);
+  }, [authError, contactsError]);
 
   useEffect(() => {
     setCurrentLocation(location.pathname);
   }, [location.pathname]);
 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
+    dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 
   return (
@@ -58,8 +63,8 @@ const App = () => {
           </Header>
 
           <Main>
-            {currentLocation !== '/contacts' && <AuthNav />}
             <Suspense fallback={<Spinner />}>
+              {currentLocation !== '/contacts' && <AuthNav />}
               <Switch>
                 <PublicRoute
                   exact

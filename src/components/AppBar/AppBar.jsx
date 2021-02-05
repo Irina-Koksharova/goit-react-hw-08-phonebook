@@ -1,17 +1,19 @@
 import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from '../../redux/auth/auth-selectors';
+import { authSelectors } from '../../redux/auth';
 import UserMenu from '../UserMenu';
 import Title from '../Title';
 
 const AppBar = () => {
-  const isLoggedIn = useSelector(getIsLoggedIn);
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
   return (
     <>
       {isLoggedIn ? (
         <UserMenu />
       ) : (
-        <Title children={'To enter the application, please, log in or register'} />
+        <Title
+          children={'To enter the application, please, log in or register'}
+        />
       )}
     </>
   );

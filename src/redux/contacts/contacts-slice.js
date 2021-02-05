@@ -1,9 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './contacts-operation';
+import contactsOperations from './contacts-operation';
+import { isHidden } from '../../styles/overlay';
+
+const {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  updateContact,
+} = contactsOperations;
 
 const initialState = {
   items: [],
   filter: '',
+  isSelected: null,
+  addFormCurrentStyle: isHidden,
+  editFormCurrentStyle: isHidden,
   isLoading: false,
   error: null,
 };
@@ -14,6 +25,16 @@ const contactsSlice = createSlice({
   reducers: {
     changeFilter: (state, { payload }) => {
       state.filter = payload;
+    },
+    editContact: (state, { payload }) => {
+      state.isSelected = payload;
+    },
+    changeAddFormStyle: (state, { payload }) => {
+      state.addFormCurrentStyle = payload;
+    },
+    changeEditFormStyle: (state, { payload }) => {
+      state.editFormCurrentStyle = payload;
+      state.isSelected = null;
     },
   },
   extraReducers: {
@@ -56,7 +77,22 @@ const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     },
+    [updateContact.pending](state, _) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [updateContact.fulfilled](state, { payload }) {
+      state.items = state.items.map(item =>
+        item.id === payload.id ? payload : item,
+      );
+      state.isLoading = false;
+      state.error = null;
+    },
+    [updateContact.rejected](state, { payload }) {
+      state.isLoading = false;
+      state.error = payload;
+    },
   },
 });
 
-export { contactsSlice };
+export default contactsSlice;

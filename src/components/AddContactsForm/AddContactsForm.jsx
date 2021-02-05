@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -5,8 +6,7 @@ import { MdDone } from 'react-icons/md';
 import { ImExit } from 'react-icons/im';
 import { IconContext } from 'react-icons';
 import s from './AddContactsForm.module.css';
-import { addContact } from '../../redux/contacts/contacts-operation';
-import { getContacts } from '../../redux/contacts/contacts-selectors';
+import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import { iconButtonAdd } from '../../styles/iconButton';
 import { contactsNotification } from '../../services/notification/notification';
 import Title from '../Title';
@@ -15,7 +15,7 @@ import InputNumber from '../InputFields/InputNumber.jsx';
 import IconButton from '../IconButton';
 
 const AddContactsForm = ({ onClick }) => {
-  const contactsList = useSelector(getContacts);
+  const contacts = useSelector(contactsSelectors.getContacts);
   const dispatch = useDispatch();
   const {
     register,
@@ -34,11 +34,11 @@ const AddContactsForm = ({ onClick }) => {
   }, [isSubmitSuccessful, reset]);
 
   const onFormSubmit = data => {
-    const includesContact = contactsList.some(
+    const includesContact = contacts.some(
       contact => contact.name === data.name,
     );
     if (!includesContact) {
-      dispatch(addContact(data));
+      dispatch(contactsOperations.addContact(data));
       onClick();
     } else {
       contactsNotification(`${data.name} is already in your contacts`);
@@ -91,6 +91,10 @@ const AddContactsForm = ({ onClick }) => {
       </IconButton>
     </>
   );
+};
+
+AddContactsForm.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export default AddContactsForm;

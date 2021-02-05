@@ -2,17 +2,19 @@ import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import s from './LogInView.module.css';
-import { logInUser } from '../../redux/auth/auth-operations';
-import { getIsLoading, getError } from '../../redux/auth/auth-selectors';
-import { clientError, showNotification } from '../../services/notification/notification';
+import { authOperations, authSelectors } from '../../redux/auth';
+import {
+  clientError,
+  showNotification,
+} from '../../services/notification/notification';
 import Spinner from '../../components/Loader';
 import InputEmail from '../../components/InputFields/InputEmail';
 import InputPassword from '../../components/InputFields/InputPassword';
 import Button from '../../components/Button';
 
 const LogInView = () => {
-  const isError = useSelector(getError);
-  const isLoading = useSelector(getIsLoading);
+  const isError = useSelector(authSelectors.getError);
+  const isLoading = useSelector(authSelectors.getIsLoading);
   const isFirstRender = useRef(true);
   const dispatch = useDispatch();
   const {
@@ -42,7 +44,7 @@ const LogInView = () => {
   }, [isSubmitSuccessful, reset]);
 
   const onFormSubmit = data => {
-    dispatch(logInUser(data));
+    dispatch(authOperations.logInUser(data));
   };
 
   return (
@@ -52,8 +54,18 @@ const LogInView = () => {
       ) : (
         <>
           <ul>
-            <InputEmail key="email" name="email" register={register} errors={errors} />
-            <InputPassword key="password" name="password" register={register} errors={errors} />
+            <InputEmail
+              key="email"
+              name="email"
+              register={register}
+              errors={errors}
+            />
+            <InputPassword
+              key="password"
+              name="password"
+              register={register}
+              errors={errors}
+            />
           </ul>
           <Button
             children={'Sign In'}

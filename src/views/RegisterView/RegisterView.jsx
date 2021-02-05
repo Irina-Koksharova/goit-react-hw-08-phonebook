@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import s from './RegisterView.module.css';
-import { registerUser } from '../../redux/auth/auth-operations';
-import { getIsLoading } from '../../redux/auth/auth-selectors';
+import { authOperations, authSelectors } from '../../redux/auth';
 import Spinner from '../../components/Loader';
 import InputName from '../../components/InputFields/InputName';
 import InputEmail from '../../components/InputFields/InputEmail';
@@ -11,7 +10,7 @@ import InputPassword from '../../components/InputFields/InputPassword';
 import Button from '../../components/Button';
 
 const RegisterView = () => {
-  const isLoading = useSelector(getIsLoading);
+  const isLoading = useSelector(authSelectors.getIsLoading);
   const dispatch = useDispatch();
   const {
     register,
@@ -30,7 +29,7 @@ const RegisterView = () => {
   }, [isSubmitSuccessful, reset]);
 
   const onFormSubmit = data => {
-    dispatch(registerUser(data));
+    dispatch(authOperations.registerUser(data));
   };
 
   return (
@@ -40,9 +39,24 @@ const RegisterView = () => {
       ) : (
         <>
           <ul>
-            <InputName key="name" name="name" register={register} errors={errors} />
-            <InputEmail key="email" name="email" register={register} errors={errors} />
-            <InputPassword key="password" name="password" register={register} errors={errors} />
+            <InputName
+              key="name"
+              name="name"
+              register={register}
+              errors={errors}
+            />
+            <InputEmail
+              key="email"
+              name="email"
+              register={register}
+              errors={errors}
+            />
+            <InputPassword
+              key="password"
+              name="password"
+              register={register}
+              errors={errors}
+            />
           </ul>
           <Button
             children={'Sign Up'}
