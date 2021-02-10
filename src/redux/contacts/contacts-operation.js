@@ -42,6 +42,9 @@ const updateContact = createAsyncThunk(
   async (data, thunkAPI) => {
     const { id, name, number } = data;
     const update = { name, number };
+    if (!update) {
+      return;
+    }
     try {
       const action = await axios.patch(`/contacts/${id}`, update);
       return action.data;

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import contactsOperations from './contacts-operation';
-import { isHidden } from '../../styles/overlay';
 
 const {
   fetchContacts,
@@ -13,8 +12,6 @@ const initialState = {
   items: [],
   filter: '',
   isSelected: null,
-  addFormCurrentStyle: isHidden,
-  editFormCurrentStyle: isHidden,
   isLoading: false,
   error: null,
 };
@@ -28,13 +25,6 @@ const contactsSlice = createSlice({
     },
     editContact: (state, { payload }) => {
       state.isSelected = payload;
-    },
-    changeAddFormStyle: (state, { payload }) => {
-      state.addFormCurrentStyle = payload;
-    },
-    changeEditFormStyle: (state, { payload }) => {
-      state.editFormCurrentStyle = payload;
-      state.isSelected = null;
     },
   },
   extraReducers: {
@@ -70,6 +60,7 @@ const contactsSlice = createSlice({
     },
     [deleteContact.fulfilled](state, { meta }) {
       state.items = state.items.filter(({ id }) => id !== meta.arg);
+      state.isSelected = null;
       state.isLoading = false;
       state.error = null;
     },

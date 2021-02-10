@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
@@ -10,20 +11,17 @@ import {
   contactsSelectors,
   contactsSlice,
 } from '../../redux/contacts';
-import { isShown } from '../../styles/overlay';
+import styleContext from '../../components/StylesContext/context.js';
 import IconButton from '../IconButton';
 
 const ContactItem = ({ id, name }) => {
   const filter = useSelector(contactsSelectors.getFilter);
   const dispatch = useDispatch();
-  const {
-    changeEditFormStyle,
-    editContact,
-    changeFilter,
-  } = contactsSlice.actions;
+  const { toggleStylePopUpEdit } = useContext(styleContext);
+  const { editContact, changeFilter } = contactsSlice.actions;
 
   const onEdit = id => {
-    dispatch(changeEditFormStyle(isShown));
+    toggleStylePopUpEdit();
     dispatch(editContact(id));
   };
 
@@ -56,7 +54,7 @@ const ContactItem = ({ id, name }) => {
             type="button"
             onClick={() => onDelete(id)}
             aria-label="Удалить контакт"
-            style={{ ...iconButtonEdit, marginRight: '10px' }}
+            style={iconButtonEdit}
           >
             <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
               <MdDelete />

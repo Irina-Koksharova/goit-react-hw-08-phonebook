@@ -8,6 +8,7 @@ import {
   serverError,
   showNotification,
 } from '../../services/notification/notification';
+import StyleProvider from '../StylesContext/Provider';
 import Notify from '../Notify';
 import Spinner from '../Loader';
 import Container from '../Container';
@@ -63,7 +64,7 @@ const App = () => {
           </Header>
 
           <Main>
-            <Suspense fallback={<Spinner />}>
+            <Suspense fallback={null}>
               {currentLocation !== '/contacts' && <AuthNav />}
               <Switch>
                 <PublicRoute
@@ -80,7 +81,9 @@ const App = () => {
                 </PublicRoute>
 
                 <PrivateRoute>
-                  <ContactsView path="/contacts" redirectTo="/login" />
+                  <StyleProvider>
+                    <ContactsView path="/contacts" redirectTo="/login" />
+                  </StyleProvider>
                 </PrivateRoute>
               </Switch>
             </Suspense>

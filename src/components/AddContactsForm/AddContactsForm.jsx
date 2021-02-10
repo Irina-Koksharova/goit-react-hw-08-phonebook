@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { MdDone } from 'react-icons/md';
@@ -9,12 +8,14 @@ import s from './AddContactsForm.module.css';
 import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import { iconButtonAdd } from '../../styles/iconButton';
 import { contactsNotification } from '../../services/notification/notification';
+import styleContext from '../../components/StylesContext/context.js';
 import Title from '../Title';
 import InputName from '../InputFields/InputName.jsx';
 import InputNumber from '../InputFields/InputNumber.jsx';
 import IconButton from '../IconButton';
 
-const AddContactsForm = ({ onClick }) => {
+const AddContactsForm = () => {
+  const { toggleStylePopUpAdd } = useContext(styleContext);
   const contacts = useSelector(contactsSelectors.getContacts);
   const dispatch = useDispatch();
   const {
@@ -37,7 +38,7 @@ const AddContactsForm = ({ onClick }) => {
     const includesContact = contacts.some(({ name }) => name === data.name);
     if (!includesContact) {
       dispatch(contactsOperations.addContact(data));
-      onClick();
+      toggleStylePopUpAdd();
     } else {
       contactsNotification(`${data.name} is already in your contacts`);
       return;
@@ -81,7 +82,7 @@ const AddContactsForm = ({ onClick }) => {
         type="submit"
         aria-label="Выйти"
         style={{ ...iconButtonAdd, right: '20%' }}
-        onClick={onClick}
+        onClick={toggleStylePopUpAdd}
       >
         <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
           <ImExit />
@@ -89,10 +90,6 @@ const AddContactsForm = ({ onClick }) => {
       </IconButton>
     </>
   );
-};
-
-AddContactsForm.propTypes = {
-  onClick: PropTypes.func.isRequired,
 };
 
 export default AddContactsForm;

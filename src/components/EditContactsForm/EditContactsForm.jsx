@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { MdDone } from 'react-icons/md';
@@ -9,12 +8,14 @@ import s from './EditContactsForm.module.css';
 import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import { iconButtonAdd } from '../../styles/iconButton';
 import { contactsNotification } from '../../services/notification/notification';
+import styleContext from '../../components/StylesContext/context.js';
 import Title from '../Title';
 import InputName from '../InputFields/InputName.jsx';
 import InputNumber from '../InputFields/InputNumber.jsx';
 import IconButton from '../IconButton';
 
-const EditContactsForm = ({ onClick }) => {
+const EditContactsForm = () => {
+  const { toggleStylePopUpEdit } = useContext(styleContext);
   const selectedContactId = useSelector(contactsSelectors.getSelectedContact);
   const contacts = useSelector(contactsSelectors.getContacts);
   const dispatch = useDispatch();
@@ -53,10 +54,10 @@ const EditContactsForm = ({ onClick }) => {
     const update = { ...data, id: selectedContactId };
     if (!includesContact) {
       dispatch(contactsOperations.updateContact(update));
-      onClick();
+      toggleStylePopUpEdit();
     } else {
+      toggleStylePopUpEdit();
       contactsNotification(`${data.name} is already in your contacts`);
-      onClick();
       return;
     }
   };
@@ -100,7 +101,7 @@ const EditContactsForm = ({ onClick }) => {
             type="submit"
             aria-label="Выйти"
             style={{ ...iconButtonAdd, right: '20%' }}
-            onClick={onClick}
+            onClick={toggleStylePopUpEdit}
           >
             <IconContext.Provider value={{ className: `${s.reactIcons}` }}>
               <ImExit />
@@ -110,10 +111,6 @@ const EditContactsForm = ({ onClick }) => {
       )}
     </>
   );
-};
-
-EditContactsForm.propTypes = {
-  onClick: PropTypes.func.isRequired,
 };
 
 export default EditContactsForm;

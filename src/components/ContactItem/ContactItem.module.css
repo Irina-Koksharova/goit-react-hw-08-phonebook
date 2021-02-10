@@ -17,6 +17,7 @@
 
 .buttonList {
   display: flex;
+  margin-right: 10px;
 }
 
 .buttonItem:not(:last-child) {
